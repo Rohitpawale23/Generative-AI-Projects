@@ -1,0 +1,1157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Mentor</title>
+    <!-- Favicon: A book emoji for DSA theme -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    <!-- External CSS for Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font for 'Inter' -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Embedded CSS for styling -->
+    <style>
+        /* CSS Variables for theming */
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --header-bg: #b30000;
+            --header-accent: #ff3333;
+            --hero-bg: #333333;
+            --chat-interface-bg: #222222;
+            --chat-container-bg: #2b2b2b;
+            --chat-border-color: #555555;
+            --user-message-bg: #ff3333;
+            --bot-message-bg: #444444;
+            --code-block-bg: #000000;
+            --code-text-color: #00ff00;
+            --code-border-color: #ff3333;
+            --copy-button-bg: #660000;
+            --copy-button-hover-bg: #800000;
+            --input-bg: #333333;
+            --input-border: #555555;
+            --input-placeholder: #aaaaaa;
+            --input-focus-border: #ff3333;
+            --input-focus-shadow: rgba(255,51,51,0.3);
+            --button-bg: #ff3333;
+            --button-hover-bg: #cc0000;
+            --info-section-bg: #222222;
+            --info-heading-color: #ff3333;
+            --list-item-bg: #3d3d3d;
+            --link-color: #ff6666;
+            --link-hover-color: #ff9999;
+            --do-heading-color: #66ff66;
+            --do-border-color: #66ff66;
+            --dont-heading-color: #ff6666;
+            --dont-border-color: #ff6666;
+            --footer-bg: #000000;
+            --footer-border: #b30000;
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            --bg-color: #f0f2f5;
+            --text-color: #333333;
+            --header-bg: #007bff;
+            --header-accent: #0056b3;
+            --hero-bg: #ffffff;
+            --chat-interface-bg: #ffffff;
+            --chat-container-bg: #f9f9f9;
+            --chat-border-color: #e0e0e0;
+            --user-message-bg: #007bff;
+            --bot-message-bg: #e2e6ea;
+            --code-block-bg: #f5f5f5;
+            --code-text-color: #212529;
+            --code-border-color: #007bff;
+            --copy-button-bg: #0056b3;
+            --copy-button-hover-bg: #004085;
+            --input-bg: #ffffff;
+            --input-border: #ced4da;
+            --input-placeholder: #6c757d;
+            --input-focus-border: #007bff;
+            --input-focus-shadow: rgba(0,123,255,0.25);
+            --button-bg: #007bff;
+            --button-hover-bg: #0056b3;
+            --info-section-bg: #ffffff;
+            --info-heading-color: #007bff;
+            --list-item-bg: #f0f0f0;
+            --link-color: #007bff;
+            --link-hover-color: #0056b3;
+            --do-heading-color: #28a745;
+            --do-border-color: #28a745;
+            --dont-heading-color: #dc3545;
+            --dont-border-color: #dc3545;
+            --footer-bg: #e9ecef;
+            --footer-border: #adb5bd;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1px 0;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 5px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            border-bottom: 3px solid var(--header-accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header .top-bar {
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 5px;
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        header .logo h1 {
+            margin: 0;
+            font-size: 1.8em;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        header .logo h1:hover {
+            transform: scale(1.03);
+        }
+
+        .theme-switcher {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-switcher:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: var(--header-accent);
+        }
+
+        header nav {
+            width: 90%;
+            margin: 0 auto;
+            padding-top: 3px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        header nav ul li {
+            margin: 0;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 6px 12px;
+            transition: all 0.3s ease-in-out;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            background-color: rgba(255,51,51,0.8);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 1px solid var(--header-accent);
+        }
+
+        .hero-section {
+            background-color: var(--hero-bg);
+            color: var(--text-color);
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            border: 1px solid var(--chat-border-color);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .hero-section h2 {
+            color: var(--info-heading-color);
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            transition: color 0.3s ease;
+        }
+
+        .hero-section p {
+            font-size: 1.2em;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #chat-interface {
+            margin-top: 40px;
+            background-color: var(--chat-interface-bg);
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            padding: 20px;
+            border: 1px solid var(--chat-border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            border: 1px solid var(--chat-border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: var(--chat-container-bg);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .chat-output {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: var(--chat-container-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .user-message p {
+            background-color: var(--user-message-bg);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 25px 25px 5px 25px;
+            max-width: 75%;
+            word-wrap: break-word;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .bot-message p {
+            background-color: var(--bot-message-bg);
+            color: var(--text-color);
+            padding: 12px 18px;
+            border-radius: 25px 25px 25px 5px;
+            max-width: 75%;
+            word-wrap: break-word;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background-color: var(--code-block-bg);
+            color: var(--code-text-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            position: relative;
+            overflow-x: auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            border: 1px solid var(--code-border-color);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            color: var(--header-accent);
+            font-size: 0.9em;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--chat-border-color);
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .copy-button {
+            background-color: var(--copy-button-bg);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            visibility: hidden;
+        }
+
+        .copy-button:hover {
+            background-color: var(--copy-button-hover-bg);
+            transform: translateY(-1px);
+        }
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid var(--chat-border-color);
+            background-color: var(--chat-interface-bg);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .chat-input-area input {
+            flex-grow: 1;
+            padding: 12px 18px;
+            border: 1px solid var(--input-border);
+            border-radius: 30px;
+            font-size: 1.05em;
+            margin-right: 15px;
+            outline: none;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .chat-input-area input::placeholder {
+            color: var(--input-placeholder);
+        }
+
+        .chat-input-area input:focus {
+            border-color: var(--input-focus-border);
+            box-shadow: 0 0 0 4px var(--input-focus-shadow);
+        }
+
+        .chat-input-area .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input-area button {
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            white-space: nowrap;
+        }
+
+        .chat-input-area button:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        .chat-input-area button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .chat-input-area button i {
+            margin-right: 8px;
+        }
+
+        .info-section {
+            background-color: var(--info-section-bg);
+            color: var(--text-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            margin-top: 30px;
+            border: 1px solid var(--chat-border-color);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .info-section h2 {
+            color: var(--info-heading-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+            transition: color 0.3s ease;
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-section ul li {
+            background-color: var(--list-item-bg);
+            color: var(--text-color);
+            margin-bottom: 10px;
+            padding: 15px 25px;
+            border-left: 5px solid var(--header-accent);
+            border-radius: 8px;
+            font-size: 1.1em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .info-section p {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .info-section a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+
+        .info-section a:hover {
+            text-decoration: underline;
+            color: var(--link-hover-color);
+        }
+
+        .rules {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .do-list, .dont-list {
+            background-color: var(--chat-container-bg);
+            padding: 25px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 320px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            border: 1px solid var(--chat-border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .do-list h3 {
+            color: var(--do-heading-color);
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            transition: color 0.3s ease;
+        }
+
+        .dont-list h3 {
+            color: var(--dont-heading-color);
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            transition: color 0.3s ease;
+        }
+
+        .do-list li {
+            color: var(--text-color);
+            border-left-color: var(--do-border-color);
+            background-color: var(--list-item-bg);
+            font-size: 1em;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dont-list li {
+            color: var(--text-color);
+            border-left-color: var(--dont-border-color);
+            background-color: var(--list-item-bg);
+            font-size: 1em;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 50px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            box-shadow: 0 -4px 8px rgba(0,0,0,0.3);
+            border-top: 3px solid var(--footer-border);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header .top-bar {
+                flex-direction: column;
+                gap: 10px;
+                padding-bottom: 5px;
+            }
+            header nav {
+                width: 95%;
+            }
+            header nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+
+            header nav ul li {
+                margin: 5px 0;
+            }
+            header nav ul li a {
+                padding: 8px 15px;
+            }
+
+            .hero-section {
+                padding: 40px 15px;
+            }
+
+            .hero-section h2 {
+                font-size: 2em;
+            }
+
+            .chat-container {
+                height: 400px;
+            }
+
+            .chat-input-area {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .chat-input-area input {
+                margin-right: 0;
+                margin-bottom: 0;
+                border-radius: 5px;
+            }
+
+            .chat-input-area .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .chat-input-area button {
+                width: 100%;
+                border-radius: 5px;
+            }
+
+            .info-section {
+                padding: 20px;
+            }
+
+            .info-section h2 {
+                font-size: 1.8em;
+            }
+
+            .rules {
+                flex-direction: column;
+            }
+
+            .do-list, .dont-list {
+                min-width: unset;
+            }
+        }
+
+        /* Typing indicator */
+        .typing-indicator p {
+            display: inline-block;
+            margin: 0;
+        }
+        .typing-indicator p::after {
+            content: '...';
+            display: inline-block;
+            animation: typingDots 1.5s infinite;
+        }
+        @keyframes typingDots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container top-bar">
+            <div class="logo">
+                <h1>📚 DSA Mentor</h1>
+            </div>
+            <button id="theme-switcher" class="theme-switcher">
+                <i class="fas fa-sun"></i> <span>Light Mode</span>
+            </button>
+        </div>
+        <nav class="container">
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#dos-donts">Do's & Don'ts</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="home" class="hero-section">
+            <h2>Welcome to DSA Buddy! 👋</h2>
+            <p>Your ultimate guide to mastering Data Structures and Algorithms. Ask any DSA-related question and get clear, concise, and expert explanations.</p>
+        </section>
+
+        <section id="chat-interface">
+            <div class="chat-container">
+                <div id="chat-output" class="chat-output">
+                    <div class="message bot-message">
+                        <p>Hello! I am DSA Buddy, your dedicated Data Structures and Algorithms instructor. How can I help you today? 🤔</p>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="user-question" placeholder="Ask your DSA question here...">
+                    <div class="action-buttons">
+                        <button id="send-button"><i class="fas fa-paper-plane"></i> Send</button>
+                        <button id="generate-problem-button"><i class="fas fa-code"></i> Generate Problem ✨</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="info-section">
+            <h2>✨ Features of DSA Buddy</h2>
+            <ul>
+                <li><strong>In-depth Explanations:</strong> Get detailed, yet simple, explanations of complex DSA concepts.</li>
+                <li><strong>Problem Breakdown:</strong> Learn how to break down complex problems into manageable parts.</li>
+                <li><strong>Polite and Clear:</strong> Answers are always polite and easy to understand (for DSA topics 😉).</li>
+                <li><strong>Quick Responses:</strong> Get your queries resolved instantly.</li>
+                <li><strong>Code Snippets:</strong> Relevant code examples (where applicable) to solidify your understanding.</li>
+                <li><strong>✨ Problem Generator:</strong> Generate new practice problems on various DSA topics and difficulty levels.</li>
+            </ul>
+        </section>
+
+        <section id="about" class="info-section">
+            <h2>ℹ️ About DSA Buddy</h2>
+            <p>DSA Buddy is an AI-powered Data Structures and Algorithms instructor designed to help learners of all levels. Our goal is to make learning DSA accessible and enjoyable by providing expert guidance in a straightforward manner. Built with cutting-edge AI, DSA Buddy understands your questions and provides comprehensive, easy-to-digest answers.</p>
+        </section>
+
+        <section id="dos-donts" class="info-section">
+            <h2>✅ Do's and ❌ Don'ts with DSA Buddy</h2>
+            <div class="rules">
+                <div class="do-list">
+                    <h3>✅ Do's:</h3>
+                    <ul>
+                        <li><strong>Ask about Arrays:</strong> "What is an array?", "Explain array operations."</li>
+                        <li><strong>Inquire about Linked Lists:</strong> "How does a linked list work?", "Types of linked lists."</li>
+                        <li><strong>Seek explanations on Trees & Graphs:</strong> "What is a binary tree?", "DFS vs BFS."</li>
+                        <li><li><strong>Explore Sorting & Searching:</strong> "Explain Merge Sort," "Binary Search algorithm."</li>
+                        <li><strong>Understand Time & Space Complexity:</strong> "What is Big O notation?"</li>
+                        <li><strong>Use the Problem Generator:</strong> "Generate Problem ✨" then "Linked List Medium" or "Graph Hard".</li>
+                    </ul>
+                </div>
+                <div class="dont-list">
+                    <h3>❌ Don'ts:</h3>
+                    <ul>
+                        <li><strong>Ask about current events:</strong> "What's the weather like?"</li>
+                        <li><strong>Inquire about personal opinions:</strong> "Do you like pizza?"</li>
+                        <li><strong>Ask non-technical questions:</strong> "What is the capital of France?"</li>
+                        <li><strong>Discuss politics or sensitive topics.</strong></li>
+                        <li><strong>Engage in idle chat.</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="info-section">
+            <h2>📞 Contact Us</h2>
+            <p>Have suggestions or feedback for DSA Buddy? We'd love to hear from you!</p>
+            <p>Email: <a href="mailto:support@dsabuddy.com">support@dsabuddy.com</a></p>
+            <p>Follow us on: <a href="https://twitter.com/DSABuddy" target="_blank">Twitter</a> | <a href="https://linkedin.com/company/dsabuddy" target="_blank">LinkedIn</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; RohitPawale@2025 DSA Buddy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userQuestionInput = document.getElementById('user-question');
+            const sendButton = document.getElementById('send-button');
+            const generateProblemButton = document.getElementById('generate-problem-button');
+            const chatOutput = document.getElementById('chat-output');
+            const themeSwitcher = document.getElementById('theme-switcher');
+
+            let isGeneratingProblemMode = false;
+            let isWaitingForResponse = false;
+
+            // Define the system instruction for the DSA Instructor Chatbot
+            const dsaInstructorPersona = `You are an Data Structures and Algorithms Instructure. You have in-depth knowledge of data structures and algorithms and the ability to break down complex problems into simple forms and explain them in simple language so anyone can understand.
+
+If a user asks you any question not related to data structures and algorithms, give them a very rude response in Hinglish or English.
+Examples (Hinglish): "ye mera kam nahi hai kuch bhi mat pucho", "tum kya chakara gaye ho kya", "me pagal hu kya? kuch bhi mat pucho?".
+Examples (English): "You dumb, ask me sensible question", "That's beyond my scope. Focus on DSA.", "I'm a DSA instructor, not a general knowledge chatbot.".
+Generate similar rude responses when off-topic.
+
+If a user asks you a question related to Data Structures and Algorithms, answer it pointwise in the simplest way, politely, with an explanation. If appropriate, provide code snippets.
+
+When asked to generate a problem, act as a problem setter. Provide a clear problem statement, input/output format, constraints, and an example. DO NOT provide a full solution, but you can suggest a high-level optimal approach. Make sure the problem is well-defined and ready for a competitive programming contest.`;
+
+            // Function to scroll chat to the bottom
+            const scrollToBottom = () => {
+                chatOutput.scrollTop = chatOutput.scrollHeight;
+            };
+
+            // Function to format text with bolding and lists
+            const formatText = (text) => {
+                // Convert bold markdown **text** to <strong>text</strong>
+                let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                // Convert list items starting with numbers or hyphens to ordered/unordered lists
+                const lines = formattedText.split('\n');
+                let inList = false;
+                let listType = '';
+                let processedLines = [];
+
+                lines.forEach(line => {
+                    const trimmedLine = line.trim();
+                    const isListItem = trimmedLine.match(/^(\d+\.\s|-\s|\*\s)(.*)/);
+
+                    if (isListItem) {
+                        const marker = isListItem[1];
+                        const content = isListItem[2];
+                        const currentListType = marker.match(/^\d+\./) ? 'ol' : 'ul';
+
+                        if (!inList) {
+                            listType = currentListType;
+                            processedLines.push(`<${listType}>`);
+                            inList = true;
+                        } else if (listType !== currentListType) {
+                            processedLines.push(`</${listType}>`);
+                            listType = currentListType;
+                            processedLines.push(`<${listType}>`);
+                        }
+                        processedLines.push(`<li>${content}</li>`);
+                    } else {
+                        if (inList) {
+                            processedLines.push(`</${listType}>`);
+                            inList = false;
+                        }
+                        processedLines.push(line);
+                    }
+                });
+
+                if (inList) {
+                    processedLines.push(`</${listType}>`);
+                }
+                
+                return processedLines.join('\n');
+            };
+
+            // Function to add a message to the chat display
+            const addMessage = (text, sender) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', `${sender}-message`);
+
+                const messageContent = document.createElement('p');
+
+                if (sender === 'bot') {
+                    // Regex to identify code blocks: ```[language]\n[code]```
+                    const codeRegex = /```(\w+)?\n([\s\S]*?)```/g;
+                    let lastIndex = 0;
+                    let currentText = text;
+                    const parts = [];
+
+                    let match;
+                    while ((match = codeRegex.exec(currentText)) !== null) {
+                        // Add text before the code block
+                        if (match.index > lastIndex) {
+                            parts.push(formatText(currentText.substring(lastIndex, match.index)));
+                        }
+
+                        const codeBlockDiv = document.createElement('div');
+                        codeBlockDiv.classList.add('code-block');
+
+                        const codeHeader = document.createElement('div');
+                        codeHeader.classList.add('code-header');
+
+                        const codeLanguage = document.createElement('span');
+                        codeLanguage.textContent = match[1] ? `Language: ${match[1].toUpperCase()}` : 'Code';
+                        codeHeader.appendChild(codeLanguage);
+
+                        const copyButton = document.createElement('button');
+                        copyButton.classList.add('copy-button');
+                        copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                        
+                        // Store the code content in a data attribute
+                        const codeContent = match[2].trim();
+                        codeBlockDiv.dataset.codeContent = codeContent;
+                        
+                        copyButton.onclick = async () => {
+                            const codeToCopy = codeBlockDiv.dataset.codeContent;
+                            try {
+                                // Modern clipboard API approach
+                                if (navigator.clipboard && navigator.clipboard.writeText) {
+                                    await navigator.clipboard.writeText(codeToCopy);
+                                    copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                                } else {
+                                    // Fallback for older browsers
+                                    const textarea = document.createElement('textarea');
+                                    textarea.value = codeToCopy;
+                                    textarea.style.position = 'fixed';
+                                    document.body.appendChild(textarea);
+                                    textarea.select();
+                                    
+                                    try {
+                                        const successful = document.execCommand('copy');
+                                        if (!successful) throw new Error('Copy command was unsuccessful');
+                                        copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                                    } finally {
+                                        document.body.removeChild(textarea);
+                                    }
+                                }
+                            } catch (err) {
+                                console.error('Failed to copy text: ', err);
+                                copyButton.innerHTML = '<i class="fas fa-times"></i> Failed!';
+                            } finally {
+                                setTimeout(() => {
+                                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                                }, 2000);
+                            }
+                        };
+
+                        codeHeader.appendChild(copyButton);
+                        codeBlockDiv.appendChild(codeHeader);
+
+                        const pre = document.createElement('pre');
+                        pre.textContent = codeContent;
+                        codeBlockDiv.appendChild(pre);
+
+                        parts.push(codeBlockDiv.outerHTML);
+                        lastIndex = codeRegex.lastIndex;
+                    }
+
+                    // Add any remaining text after the last code block
+                    if (lastIndex < currentText.length) {
+                        parts.push(formatText(currentText.substring(lastIndex)));
+                    }
+                    
+                    messageContent.innerHTML = parts.join('');
+                    messageDiv.appendChild(messageContent);
+                } else {
+                    messageContent.textContent = text;
+                    messageDiv.appendChild(messageContent);
+                }
+
+                chatOutput.appendChild(messageDiv);
+                scrollToBottom();
+            };
+
+            // Function to show typing indicator
+            const showTypingIndicator = () => {
+                const typingDiv = document.createElement('div');
+                typingDiv.classList.add('message', 'bot-message', 'typing-indicator');
+                typingDiv.innerHTML = '<p>DSA Buddy is thinking</p>';
+                chatOutput.appendChild(typingDiv);
+                scrollToBottom();
+                return typingDiv;
+            };
+
+            // Function to hide typing indicator
+            const hideTypingIndicator = (indicator) => {
+                if (indicator && chatOutput.contains(indicator)) {
+                    chatOutput.removeChild(indicator);
+                }
+            };
+
+            // Generic function to call Gemini API (or your backend proxy) and display response
+            async function callGeminiAPI(promptContent) {
+                if (isWaitingForResponse) return;
+                isWaitingForResponse = true;
+                
+                const typingIndicator = showTypingIndicator();
+                sendButton.disabled = true;
+                generateProblemButton.disabled = true;
+
+                const apiKey = "AIzaSyB6-NGO8IX3FJgiTj13bStQYLTAJRJgTvY";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: promptContent }] });
+
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "text/plain",
+                    },
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        let errorDetails = 'No additional error details available.';
+                        try {
+                            const errorJson = await response.json();
+                            errorDetails = JSON.stringify(errorJson, null, 2);
+                        } catch (parseError) {
+                            errorDetails = await response.text();
+                        }
+                        throw new Error(`API returned an error: ${response.status} ${response.statusText}\nDetails: ${errorDetails}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        return result.candidates[0].content.parts[0].text;
+                    } else {
+                        if (result.promptFeedback && result.promptFeedback.safetyRatings && result.promptFeedback.safetyRatings.length > 0) {
+                            console.warn("Gemini API blocked response due to safety concerns:", result.promptFeedback.safetyRatings);
+                            return "I'm sorry, I cannot provide a response for that query due to safety guidelines. Please ask a question related to Data Structures and Algorithms. 🛡️";
+                        } else {
+                            console.error("Unexpected API response structure or empty generation:", result);
+                            return "I'm sorry, I encountered an unexpected issue. Please try your question again. 🤷‍♂️";
+                        }
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching from Google GenAI API:', error);
+                    if (error.message.includes('Failed to fetch')) {
+                        return `Oops! I couldn't connect to my knowledge base. Please check your internet connection or try again in a moment. 🌐`;
+                    } else {
+                        return `An error occurred: ${error.message}. Please try again.`;
+                    }
+                } finally {
+                    hideTypingIndicator(typingIndicator);
+                    sendButton.disabled = false;
+                    generateProblemButton.disabled = false;
+                    isWaitingForResponse = false;
+                }
+            }
+
+            // Function to generate a DSA problem using LLM
+            async function generateDSAProblem(inputString) {
+                const parts = inputString.split(/\s*,\s*|\s+/).filter(Boolean);
+                let topic = 'general DSA';
+                let difficulty = 'medium';
+
+                if (parts.length >= 2) {
+                    topic = parts.slice(0, -1).join(' ');
+                    difficulty = parts[parts.length - 1].toLowerCase();
+                } else if (parts.length === 1) {
+                    const lastPart = parts[0].toLowerCase();
+                    if (['easy', 'medium', 'hard'].includes(lastPart)) {
+                        difficulty = lastPart;
+                    } else {
+                        topic = parts[0];
+                    }
+                } else {
+                     addMessage("Please specify a topic and difficulty, e.g., 'Linked List Easy' or 'Arrays Medium'.", 'bot');
+                     return;
+                }
+                
+                const problemPrompt = `${dsaInstructorPersona}\n\nGenerate a Data Structures and Algorithms problem about "${topic}" with "${difficulty}" difficulty. The problem should include a clear problem statement, input format, output format, constraints, and an example. Do NOT provide a full solution, but you can suggest a high-level optimal approach. Make sure the problem is well-defined and ready for a competitive programming contest.`;
+                
+                addMessage(`Generating a **${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}** problem on **${topic.charAt(0).toUpperCase() + topic.slice(1)}**...`, 'bot');
+
+                const botResponse = await callGeminiAPI(problemPrompt);
+                addMessage(botResponse, 'bot');
+            }
+
+            // Theme switching logic
+            const applyTheme = (theme) => {
+                document.body.classList.remove('light-theme', 'dark-theme');
+                document.body.classList.add(`${theme}-theme`);
+                localStorage.setItem('theme', theme);
+
+                const icon = themeSwitcher.querySelector('i');
+                const textSpan = themeSwitcher.querySelector('span');
+
+                if (theme === 'light') {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    textSpan.textContent = 'Light Mode';
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    textSpan.textContent = 'Dark Mode';
+                }
+            };
+
+            // Check for saved theme preference on load
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                applyTheme('dark');
+            }
+
+            // Toggle theme on button click
+            themeSwitcher.addEventListener('click', () => {
+                const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                applyTheme(newTheme);
+            });
+
+            // Event listener for Send button click
+            sendButton.addEventListener('click', async () => {
+                const userQuestion = userQuestionInput.value.trim();
+                if (userQuestion && !isWaitingForResponse) {
+                    addMessage(userQuestion, 'user');
+                    userQuestionInput.value = '';
+
+                    if (isGeneratingProblemMode) {
+                        await generateDSAProblem(userQuestion);
+                        isGeneratingProblemMode = false;
+                        userQuestionInput.placeholder = "Ask your DSA question here...";
+                        sendButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send';
+                    } else {
+                        const fullPrompt = `${dsaInstructorPersona}\n\nUser query: ${userQuestion}`;
+                        const botResponse = await callGeminiAPI(fullPrompt);
+                        addMessage(botResponse, 'bot');
+                    }
+                }
+            });
+
+            // Event listener for "Generate Problem" button click
+            generateProblemButton.addEventListener('click', () => {
+                if (isWaitingForResponse) return;
+                
+                isGeneratingProblemMode = !isGeneratingProblemMode;
+                if (isGeneratingProblemMode) {
+                    userQuestionInput.placeholder = "Enter DSA topic and difficulty (e.g., Arrays Medium)";
+                    sendButton.innerHTML = '<i class="fas fa-code"></i> Generate';
+                } else {
+                    userQuestionInput.placeholder = "Ask your DSA question here...";
+                    sendButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send';
+                }
+                userQuestionInput.value = '';
+                userQuestionInput.focus();
+            });
+
+            // Event listener for Enter key press in the input field
+            userQuestionInput.addEventListener('keypress', async (event) => {
+                if (event.key === 'Enter' && !isWaitingForResponse) {
+                    sendButton.click();
+                }
+            });
+
+            // Add smooth scrolling for navigation links
+            document.querySelectorAll('header nav ul li a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    document.querySelectorAll('header nav ul li a').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+
+            // Update active class on scroll
+            window.addEventListener('scroll', () => {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('header nav ul li a');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop - sectionHeight / 3) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
